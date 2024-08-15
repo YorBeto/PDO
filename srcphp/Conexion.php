@@ -11,7 +11,7 @@
          */
         public static $DB = null;
         public $dbname = "arsenal_gym";
-        public $host = "18.191.158.144";
+        public $host = "18.222.26.215";
         public $user = "root";
         public $password = "1234";
         /**ic

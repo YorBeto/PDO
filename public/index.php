@@ -4,44 +4,55 @@ namespace proyecto;
 require("../vendor/autoload.php");
 
 use PDO;
-use proyecto\Models\Models;
-use proyecto\Controller\UsuariosController;
-use proyecto\Controller\ServiciosController;
-use proyecto\Controller\CategoriasController;
-use proyecto\Controller\RegistroCitasController;
-use proyecto\Controller\ServiciosCitasController;
+use proyecto\Models\User;
 use proyecto\Response\Failure;
 use proyecto\Response\Success;
+use proyecto\Models\clientes;
+use proyecto\Models\inbody_citas;
 use proyecto\Models\productos_servicios;
+use proyecto\Models\Categorias_productos;
+use proyecto\Models\Personas;
+use proyecto\Models\Empleados;
+use proyecto\Models\Clases;
+use proyecto\Controller\PersonasController;
+use proyecto\Controller\MostrarSociosController;
+use proyecto\Controller\LoginController;
+use proyecto\Controller\LoginSociosController;
+use proyecto\Controller\ProductosController;
+use proyecto\Controller\EmpleadosController;
+use proyecto\Controller\CarritoController;
 // Metodo header para poder resivir solicitudes de cualquier dominio //
 Router::headers();
 
 //Metodos post//
-Router::post('/servicio/actualizar',[ServiciosController::class,"actualizarServicio"]);
-Router::post('/categoria/actualizar',[CategoriasController::class,"actualizarCategoria"]);
-Router::post('/crear_servicio',[ServiciosController::class,'crear_servicio']);
-Router::post('/crear_categoria',[CategoriasController::class,'crear_categoria']);
-Router::post('/servicio_cita/actualizar',[ServiciosCitasController::class,"actualizarServicioCita"]);
-Router::post('/registro_citas/actualizar',[RegistroCitasController::class,"actualizarRegistroCita"]);
-Router::post('/eliminar_servicio',[ServiciosCitasController::class,"borrar_cita"]);
-Router::post('/registrar_usuario',[UsuariosController::class,"Register"]);
-Router::post('/auth',[UsuariosController::class,"auth"]);
-Router::post('/crear_sc_calendario',[ServiciosCitasController::class,'crear_cita']);
-Router::post('/crear_cita_calendario',[RegistroCitasController::class,'crear_registro_cita']);
+Router::post('/registro', [PersonasController::class, "registroclientes"]);
+Router::post('/loginSocios', [LoginSociosController::class, "loginsocios"]);
+Router::post('/insertarproducto', [ProductosController::class, "insertarProducto"]);
+Router::post('/producto/actualizar', [ProductosController::class, "actualizarProducto"]);
+Router::post('/registro',[PersonasController::class,"registroclientes"]);
+Router::post('/registroEmpleados',[EmpleadosController::class,"registroempleados"]);
+Router::post('/loginClientes',[LoginController::class,"login"]);
+Router::post('/loginSocios',[LoginSociosController::class,"loginsocios"]);
+
+Router::post('/orden/crear', [CarritoController::class, "crearOrdenVenta"]);
+Router::post('/producto/agregar', [CarritoController::class, "agregarProductoDetalle"]);
+Router::post('/pago/registrar', [CarritoController::class, "registrarPago"]);
+
+// Rutas DELETE
+Router::delete('/producto/eliminar', [ProductosController::class, "eliminarProducto"]);
+Router::delete('/empleado/eliminar', [EmpleadosController::class, "eliminarEmpleado"]);
 // Metodos get //
-Router::get('/usuarios',[UsuariosController::class,"mostrarUsuarios"]);
-Router::get('/servicios',[ServiciosController::class,'servicios']);
-Router::get('/registro_citas',[RegistroCitasController::class,'registros']);
-Router::get('/categorias',[CategoriasController::class,'categories']);
-Router::get('/citas_calendario',[RegistroCitasController::class,'citas']);
-Router::get('/citas_calendario_cliente',[RegistroCitasController::class,'citasCliente']);
-Router::get('/servicio_citas_calendario',[ServiciosCitasController::class,'mostrar']);
-Router::get('/servicios_calendario',[ServiciosController::class,'mostrar']);
-Router::get('/servicio_bloqueos_calendario',[ServiciosCitasController::class,'mostrar_bloqueos']);
-Router::get('/servicios_nombre',[ServiciosCitasController::class,'servicios_Nombre']);
-Router::get('/servicios_activos',[ServiciosController::class,'servicios_act']);
-Router::get('/categorias_activos',[CategoriasController::class,'categories_act']);
-Router::get('/productos',[productos_servicios::class,'mostrarProductos']);
+Router::get('/prueba', [crearPersonaController::class, "prueba"]);
+Router::get('/empleados', [Empleados::class, "mostrarEmpleados"]);
+Router::get('/socios', [MostrarSociosController::class, "mostrarsocios"]);
+Router::get('/citas', [inbody_citas::class, "mostrarcitas"]);
+Router::get('/categorias', [Categorias_productos::class, "obtenerCategorias"]);
+Router::get('/crearpersona', [crearPersonaController::class, "crearPersona"]);
+Router::get('/productos', [productos_servicios::class, "mostrarProductos"]);
+Router::get('/productosinicio', [productos_servicios::class, "productosinicio"]);
+Router::get('/producto', [ProductosController::class, "obtenerProductoPorId"]);
+Router::get('/clases', [Clases::class, "mostrarClases"]);
+Router::get('/empleado/obtener', [EmpleadosController::class, "obtenerEmpleadoPorId"]);
 
 Router::get('/usuario/buscar/$id', function ($id) {
 
