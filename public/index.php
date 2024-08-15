@@ -12,6 +12,7 @@ use proyecto\Controller\RegistroCitasController;
 use proyecto\Controller\ServiciosCitasController;
 use proyecto\Response\Failure;
 use proyecto\Response\Success;
+use proyecto\Models\productos_servicios;
 // Metodo header para poder resivir solicitudes de cualquier dominio //
 Router::headers();
 
@@ -40,6 +41,7 @@ Router::get('/servicio_bloqueos_calendario',[ServiciosCitasController::class,'mo
 Router::get('/servicios_nombre',[ServiciosCitasController::class,'servicios_Nombre']);
 Router::get('/servicios_activos',[ServiciosController::class,'servicios_act']);
 Router::get('/categorias_activos',[CategoriasController::class,'categories_act']);
+Router::get('/productos',[productos_servicios::class,'mostrarProductos']);
 
 Router::get('/usuario/buscar/$id', function ($id) {
 
