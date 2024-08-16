@@ -5,7 +5,7 @@ namespace proyecto\Controller;
 use proyecto\Models\Table;
 use proyecto\Response\Success;
 use proyecto\Models\Personas;
-   
+
 class PersonasController {
 
     public function registroclientes() {
@@ -18,6 +18,7 @@ class PersonasController {
             !isset($dataObject->fechaNacimiento) || !isset($dataObject->sexo) || 
             !isset($dataObject->correo) || !isset($dataObject->telefono) || 
             !isset($dataObject->contrasena)) {
+            header('Content-Type: application/json');
             echo json_encode(['success' => false, 'message' => 'Datos incompletos']);
             return;
         }
@@ -45,11 +46,12 @@ class PersonasController {
         // Ejecutar la consulta
         try {
             $resultados = Table::query($query);
+            header('Content-Type: application/json');
             $r = new Success(['success' => true, 'message' => 'Registro exitoso']);
-            return $r->send();
+            echo json_encode($r->send());
         } catch (\Exception $e) {
+            header('Content-Type: application/json');
             echo json_encode(['success' => false, 'message' => 'Error en el registro: ' . $e->getMessage()]);
-            return;
         }
     }
 }
