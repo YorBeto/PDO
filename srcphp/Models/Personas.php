@@ -12,7 +12,7 @@ class Personas extends Models{
 
     
     protected $fillable = ["ID_PERSONA", "ID_USUARIO", "NOMBRE", "APELLIDO", "FECHA_NAC", "SEXO", "CORREO", "TELEFONO"];
-    protected $table = "persona";
+    protected $table = "PERSONA";
 
     public function login() {
         // Leer el contenido de la solicitud JSON
